@@ -41,10 +41,10 @@ Bachelor's capstone project focused on developing an industrial monitoring and c
 
 ## System Architecture
 
-![Architecture](images/architecture.png)
+![Architecture](images/architecture.jpg)
 
 ---
 
 ## Database Schema
 
-![Database](images/database-schema.png)
+![Database](images/database-schema.jpg)
