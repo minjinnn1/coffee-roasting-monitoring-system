@@ -36,3 +36,15 @@ Bachelor's capstone project focused on developing an industrial monitoring and c
 ### Alarm Monitoring
 
 ![Alarms](images/alarms.png)
+
+---
+
+## System Architecture
+
+![Architecture](images/architecture.png)
+
+---
+
+## Database Schema
+
+![Database](images/database-schema.png)
