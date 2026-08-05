@@ -18,3 +18,33 @@ Bachelor's capstone project focused on developing an industrial monitoring and c
 - Recipe management
 - Alarm system
 - User authentication
+
+## Screenshots
+
+### Login
+
+![Login](images/login.png)
+
+### Dashboard
+
+![Dashboard](images/dashboard.png)
+
+### Recipe Management
+
+![Recipes](images/recipes.png)
+
+### Alarm Monitoring
+
+![Alarms](images/alarms.png)
+
+---
+
+## System Architecture
+
+![Architecture](images/architecture.jpg)
+
+---
+
+## Database Schema
+
+![Database](images/database-schema.jpg)
