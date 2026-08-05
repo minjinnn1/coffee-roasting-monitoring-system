@@ -21,6 +21,10 @@ Bachelor's capstone project focused on developing an industrial monitoring and c
 
 ## Screenshots
 
+### Login
+
+![Login](images/login.png)
+
 ### Dashboard
 
 ![Dashboard](images/dashboard.png)
