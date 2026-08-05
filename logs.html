@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roast Control - Логи</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="logs">
+  <div class="app-shell">
+    <header>
+      <div class="brand"></div>
+      <div class="nav" id="nav"></div>
+      <div class="header-right">
+        <div class="badge"><span id="userRole">-</span></div>
+      </div>
+    </header>
+
+    <section class="panel logs-panel">
+      <div class="page-title logs-page-title panel-page-title">
+        <div>
+          <h2>Логи</h2>
+          <p>Журнал событий системы и действий управления параметрами</p>
+        </div>
+      </div>
+
+      <div class="logs-tabs">
+        <button id="tabEvents" class="logs-tab active">Журнал событий</button>
+        <button id="tabControl" class="logs-tab">Журнал управления</button>
+      </div>
+
+      <div class="logs-filters">
+        <input id="logSearch" placeholder="Поиск по описанию" />
+        <select id="logUserFilter"><option value="">Пользователь</option></select>
+        <select id="logTypeFilter"><option value="">Тип события / Параметр</option></select>
+        <button id="applyLogFiltersBtn" class="secondary">Применить</button>
+        <button id="resetLogFiltersBtn" class="secondary">Сбросить</button>
+      </div>
+
+      <div id="logsTableWrap" class="logs-table-wrap">
+        <table class="logs-table" id="logsTable">
+          <thead id="logsTableHead"></thead>
+          <tbody id="logsTableBody"></tbody>
+        </table>
+        <div id="logsEmpty" class="logs-empty">Записи отсутствуют</div>
+      </div>
+    </section>
+  </div>
+
+  <script defer src="assets/data.js"></script>
+  <script defer src="assets/auth.js"></script>
+  <script defer src="assets/api.js"></script>
+  <script defer src="assets/logs.js"></script>
+  <script defer src="assets/app.js"></script>
+</body>
+</html>

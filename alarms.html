@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roast Control — Тревоги</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="alarms">
+  <div class="app-shell">
+    <header>
+      <div class="brand">
+        <div class="badge">Партия: <span id="batchName">-</span></div>
+      </div>
+      <div class="nav" id="nav"></div>
+      <div class="header-right">
+        <div class="badge"><span id="userRole">—</span></div>
+      </div>
+    </header>
+
+    <section class="panel alarms-panel">
+      <div class="page-title alarms-page-title">
+        <h2>Тревоги и отклонения</h2>
+      </div>
+
+      <!-- Вкладки -->
+      <div class="alarm-tabs">
+        <button class="alarm-tab active" data-tab="active">
+          Активные <span class="alarm-tab-count" id="countActive">0</span>
+        </button>
+        <button class="alarm-tab" data-tab="history">
+          История <span class="alarm-tab-count" id="countHistory">0</span>
+        </button>
+      </div>
+
+      <!-- Активные тревоги -->
+      <div class="alarms-table-wrap" id="tabActive">
+        <table class="logs-table alarms-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Время</th>
+              <th>Параметр</th>
+              <th>Факт</th>
+              <th>Уставка</th>
+              <th>Отклонение</th>
+              <th>Критичность</th>
+              <th>Действие</th>
+            </tr>
+          </thead>
+          <tbody id="alarmsActive"></tbody>
+        </table>
+      </div>
+
+      <!-- История тревог -->
+      <div class="alarms-table-wrap" id="tabHistory" style="display:none;">
+        <table class="logs-table alarms-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Время</th>
+              <th>Параметр</th>
+              <th>Факт</th>
+              <th>Уставка</th>
+              <th>Отклонение</th>
+              <th>Критичность</th>
+              <th>Статус</th>
+            </tr>
+          </thead>
+          <tbody id="alarmsHistory"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <template id="alarmRowTemplate">
+    <tr>
+      <td data-field="id"></td>
+      <td data-field="time"></td>
+      <td><strong data-field="param"></strong></td>
+      <td data-field="fact"></td>
+      <td data-field="setpoint"></td>
+      <td><span data-field="deviation" class="delta"></span></td>
+      <td><span data-field="severity" class="log-event-badge"></span></td>
+      <td data-field="action"></td>
+    </tr>
+  </template>
+
+
+  <script defer src="assets/data.js"></script>
+  <script defer src="assets/auth.js"></script>
+  <script defer src="assets/api.js"></script>
+  <script defer src="assets/charts.js"></script>
+  <script defer src="assets/dashboard.js"></script>
+  <script defer src="assets/page-alarms.js"></script>
+  <script defer src="assets/page-batches.js"></script>
+  <script defer src="assets/page-recipes.js"></script>
+  <script defer src="assets/app.js"></script>
+</body>
+</html>

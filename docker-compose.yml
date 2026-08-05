@@ -1,0 +1,59 @@
+services:
+  db:
+    profiles: ["local-db"]
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASS:-Minjin2004}
+      MYSQL_DATABASE: ${DB_NAME:-roast}
+      MYSQL_USER: ${DB_USER:-root}
+      MYSQL_PASSWORD: ${DB_PASS:-Minjin2004}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_PASS:-Minjin2004}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - app-net
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      DB_HOST: ${DB_HOST:-host.docker.internal}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_USER: ${DB_USER:-root}
+      DB_PASS: ${DB_PASS:-Minjin2004}
+      DB_NAME: ${DB_NAME:-roast}
+      PORT: ${API_PORT:-3000}
+      API_CORS_ORIGIN: ${API_CORS_ORIGIN:-http://localhost:8080}
+    ports:
+      - "${API_PORT:-3000}:3000"
+    networks:
+      - app-net
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    networks:
+      - app-net
+
+networks:
+  app-net:
+
+volumes:
+  db_data:

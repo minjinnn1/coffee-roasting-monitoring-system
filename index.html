@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roast Control</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="dashboard">
+  <div class="app-shell">
+    <header>
+      <div class="brand">
+        <div class="badge">Текущая партия: <span id="batchName">—</span></div>
+      </div>
+      <div class="nav" id="nav"></div>
+      <div class="header-right">
+        <div class="badge"><span id="userRole">Operator</span></div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <div class="main">
+        <section class="panel chart" aria-label="Графики параметров">
+          <div class="chart-header">
+            <div>
+              <h2>Графики</h2>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <div class="title-main">Температура</div>
+              <canvas id="chartTemps" width="900" height="210"></canvas>
+              <div class="legend" id="legendTemps"></div>
+            </div>
+
+            <div class="chart-card">
+              <div class="title-main">Скорость роста температуры</div>
+              <canvas id="chartRor" width="900" height="210"></canvas>
+              <div class="legend" id="legendRor"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-label="Параметры и уставки">
+          <h2>Просмотр параметров</h2>
+
+          <div id="stageHeaderWrap" class="stage-header hidden">
+            <div class="stage-header__top">
+              <span id="stageTitle"></span>
+              <span id="stageTime"></span>
+            </div>
+            <div class="stage-header__progress">
+              <div id="stageProgress"></div>
+            </div>
+            <div id="stageHint"></div>
+          </div>
+
+          <div class="parameter-table-wrap">
+            <table class="control-table parameter-table">
+              <thead>
+                <tr>
+                  <th>Название параметра</th>
+                  <th>Время</th>
+                  <th>Текущее значение</th>
+                  <th>Уставка</th>
+                  <th>Отклонение</th>
+                  <th>Статус</th>
+                </tr>
+              </thead>
+              <tbody id="setpointsTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <div class="sidebar-stack">
+        <section class="panel" id="startPanel" aria-label="Запуск партии">
+          <h2>Запуск партии</h2>
+          <label>Рецепт</label>
+          <select id="startRecipeSelect"></select>
+          <input type="number" step="0.1" id="startBatchWeight" placeholder="Вес зелёного кофе, кг" value="12">
+          <input type="text" id="startCoffeeVariety" placeholder="Сорт / происхождение" value="Бразилия Сантос">
+          <div style="margin-top:10px;">
+            <button class="success" id="startBatchBtn" style="width:100%;">Запустить</button>
+          </div>
+        </section>
+
+        <section class="panel hidden" id="operatorPanel" aria-label="Управление партией">
+          <h2>Управление партией</h2>
+
+          <div class="op-batch-info">
+            <div class="op-batch-top">
+              <span class="op-batch-name" id="opBatchName">—</span>
+              <span class="status-chip ok" id="opBatchStatus">Active</span>
+            </div>
+
+            <div class="op-batch-meta">
+              <span id="opBatchRecipe">—</span>
+              <span id="opBatchWeight">—</span>
+            </div>
+
+            <div class="op-batch-meta" style="margin-bottom:8px;">
+              <span style="color:var(--muted);font-size:12px;">Оператор:</span>
+              <span id="opBatchOperator">—</span>
+            </div>
+
+            <div class="op-batch-times">
+              <span class="label">Длительность</span><span id="opRoastTime">00:00</span>
+              <span class="label">Старт</span><span id="opStartTime">—</span>
+            </div>
+          </div>
+
+          <button class="danger" id="stopBatchBtn" style="width:100%;">Остановить</button>
+        </section>
+
+        <section class="panel hidden" id="operatorControlPanel" aria-label="Управление параметрами">
+          <h2>Управление параметрами</h2>
+
+          <div class="ctrl-cards">
+            <div class="ctrl-card">
+              <div class="ctrl-card-name">Мощность нагрева</div>
+              <div class="ctrl-card-info">
+                <span id="ctrlCurrentPower">Текущее: —</span>
+                <span id="ctrlSetpointPower">Уставка: —</span>
+              </div>
+              <div class="ctrl-stepper">
+                <button class="secondary ctrl-step" data-param-key="power" data-delta="-1">−1</button>
+                <button class="secondary ctrl-step" data-param-key="power" data-delta="-0.5">−0.5</button>
+                <span class="ctrl-pending" id="pendingPower">—</span>
+                <button class="secondary ctrl-step" data-param-key="power" data-delta="0.5">+0.5</button>
+                <button class="secondary ctrl-step" data-param-key="power" data-delta="1">+1</button>
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-name">Скорость воздушного потока</div>
+              <div class="ctrl-card-info">
+                <span id="ctrlCurrentFlow">Текущее: —</span>
+                <span id="ctrlSetpointFlow">Уставка: —</span>
+              </div>
+              <div class="ctrl-stepper">
+                <button class="secondary ctrl-step" data-param-key="flow" data-delta="-0.5">−0.5</button>
+                <span class="ctrl-pending" id="pendingFlow">—</span>
+                <button class="secondary ctrl-step" data-param-key="flow" data-delta="0.5">+0.5</button>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="applyCorrection" style="width:100%;margin-top:8px;color:#fff;">Применить</button>
+          <div id="overrideIndicators"></div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <template id="setpointRowTemplate">
+    <tr>
+      <td data-field="name"></td>
+      <td class="value" data-field="time">-</td>
+      <td class="value" data-field="current"></td>
+      <td class="value" data-field="setpoint"></td>
+      <td class="delta" data-field="delta">0</td>
+      <td><span class="log-event-badge log-event-badge--green" data-field="status">OK</span></td>
+    </tr>
+  </template>
+
+  <template id="overrideTemplate">
+    <div class="override-indicator">
+      <span data-field="text"></span>
+      <span data-field="timer"></span>
+      <button type="button" class="secondary override-reset" data-action="reset-override">Сбросить</button>
+    </div>
+  </template>
+
+  <div class="toast" id="toast"></div>
+
+
+  <script defer src="assets/data.js"></script>
+  <script defer src="assets/auth.js"></script>
+  <script defer src="assets/api.js"></script>
+  <script defer src="assets/charts.js"></script>
+  <script defer src="assets/dashboard.js"></script>
+  <script defer src="assets/page-alarms.js"></script>
+  <script defer src="assets/page-batches.js"></script>
+  <script defer src="assets/page-recipes.js"></script>
+  <script defer src="assets/app.js"></script>
+</body>
+</html>

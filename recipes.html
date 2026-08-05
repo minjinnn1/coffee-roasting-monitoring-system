@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roast Control - Рецепты</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="recipes">
+  <div class="app-shell">
+    <header>
+      <div class="brand"></div>
+      <div class="nav" id="nav"></div>
+      <div class="header-right">
+        <div class="badge"><span id="userRole">-</span></div>
+      </div>
+    </header>
+
+    <section class="panel recipe-panel">
+      <div class="page-title panel-page-title">
+        <h2>Рецепты обжарки</h2>
+      </div>
+
+      <div class="recipe-toolbar">
+        <label for="recipeSelect">Выберите рецепт</label>
+        <select id="recipeSelect"></select>
+        <div id="recipeActions" class="recipe-actions"></div>
+      </div>
+
+      <!-- Редактор рецепта (модальное окно) -->
+      <div id="recipeEditor" class="modal" style="display:none;">
+        <div class="card recipe-editor" style="max-width:1100px; width:100%; max-height:90vh; display:flex; flex-direction:column;">
+          <div class="recipe-editor__header" style="padding:16px; border-bottom:1px solid var(--border); background:rgba(255,255,255,0.02);">
+            <h3 id="recipeEditorTitle">Редактирование рецепта</h3>
+            <div id="recipeEditorError" style="color:#fecaca; margin-top:8px; display:none;"></div>
+          </div>
+
+          <div class="recipe-editor__body" style="overflow:auto; padding:16px; display:flex; flex-direction:column; gap:16px;">
+            <div class="grid" style="display:grid; grid-template-columns: 1fr 360px; gap:12px; align-items:start;">
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <div>
+                  <label>Название</label>
+                  <input id="r_name" type="text" style="width:100%" />
+                </div>
+
+                <div>
+                  <label>Степень обжарки</label>
+                  <select id="r_degree" style="width:100%">
+                    <option value="light">Light</option>
+                    <option value="medium">Medium</option>
+                    <option value="dark">Dark</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label>Общая длительность (сек)</label>
+                  <input id="r_total_duration_sec" type="number" style="width:100%" />
+                </div>
+
+                <div>
+                  <label>Целевой вес (кг)</label>
+                  <input id="r_target_weight_kg" type="number" step="0.1" style="width:100%" />
+                </div>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <label>Описание</label>
+                <textarea id="r_description" rows="8" style="width:100%; min-height:160px;"></textarea>
+              </div>
+            </div>
+
+            <div class="setpoints-section">
+              <h4>Уставки (Setpoints)</h4>
+              <div id="setpointsGroups" style="display:flex; flex-direction:column; gap:12px;"></div>
+            </div>
+
+            <div class="stages-section">
+              <h4>Этапы (Stages)</h4>
+              <div id="stagesEditorList" style="display:flex; flex-direction:column; gap:8px;"></div>
+              <div style="margin-top:8px;"><button id="addStage">+ Добавить этап</button></div>
+            </div>
+          </div>
+
+          <div class="recipe-editor__footer" style="padding:12px 16px; border-top:1px solid var(--border); display:flex; gap:8px; justify-content:flex-end;">
+            <button class="secondary" id="recipeEditorCancel">Отмена</button>
+            <button class="success" id="recipeEditorSave">Сохранить</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="recipeCard" class="recipe-card">
+        <div class="recipe-passport">
+          <div class="recipe-passport__top">
+            <div class="recipe-passport__main">
+              <div class="recipe-card__name" id="recipeName">-</div>
+              <p class="recipe-card__desc" id="recipeDescription">-</p>
+            </div>
+	            <div class="recipe-card__meta">
+	              <span class="badge" id="recipeDegree">-</span>
+	              <span class="badge-light" id="recipeDuration">-</span>
+	            </div>
+          </div>
+        </div>
+
+        <div class="recipe-profile chart-card">
+          <div class="chart-card-title">
+            <span class="title-main">Профиль уставок</span>
+            <span class="subtitle">График строится по recipe.setpoints, зоны показывают этапы обжарки</span>
+          </div>
+          <div class="recipe-profile-grid">
+            <div>
+              <div class="table-title">Температурный профиль</div>
+              <canvas id="recipeTempProfileChart" width="1200" height="300"></canvas>
+              <div class="legend" id="recipeTempProfileLegend"></div>
+            </div>
+            <div>
+              <div class="table-title">Управляющий профиль</div>
+              <canvas id="recipeControlProfileChart" width="1200" height="300"></canvas>
+              <div class="legend" id="recipeControlProfileLegend"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-card__body">
+          <div class="chart-card">
+            <div class="table-title">Этапы обжарки</div>
+            <div id="recipeStagesBody" class="recipe-stages-list"></div>
+          </div>
+
+          <div class="chart-card">
+            <div class="table-title">Уставки параметров</div>
+            <div id="recipeSetpointsBody" class="recipe-setpoint-groups"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script defer src="assets/data.js"></script>
+  <script defer src="assets/auth.js"></script>
+  <script defer src="assets/api.js"></script>
+  <script defer src="assets/charts.js"></script>
+  <script defer src="assets/dashboard.js"></script>
+  <script defer src="assets/page-alarms.js"></script>
+  <script defer src="assets/page-batches.js"></script>
+  <script defer src="assets/page-recipes.js"></script>
+  <script defer src="assets/app.js"></script>
+</body>
+</html>

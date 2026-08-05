@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roast Control - Партии</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="batches">
+  <div class="app-shell">
+    <header>
+      <div class="brand"></div>
+      <div class="nav" id="nav"></div>
+      <div class="header-right">
+        <div class="badge"><span id="userRole">—</span></div>
+      </div>
+    </header>
+
+    <section class="panel batches-panel">
+      <div class="page-title panel-page-title">
+        <h2>Архив партий</h2>
+      </div>
+
+      <div class="batch-filters">
+        <div>
+          <label>Статус</label>
+          <select id="filterStatus">
+            <option value="all">Все</option>
+            <option value="completed">Завершённые</option>
+            <option value="aborted">Прерванные</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Рецепт</label>
+          <select id="filterRecipe">
+            <option value="all">Все</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Поиск по номеру</label>
+          <input id="filterSearch" placeholder="BATCH-…" />
+        </div>
+      </div>
+
+      <div class="table-grid batches-table-wrap">
+        <table id="batchesTable" class="logs-table batches-table">
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>Номер партии</th>
+              <th>Рецепт</th>
+              <th>Сорт зерна</th>
+              <th>Вес вх., кг</th>
+              <th>Вес вых., кг</th>
+              <th>Начало</th>
+              <th>Длительность</th>
+              <th>Статус</th>
+              <th>Отчёт</th>
+            </tr>
+          </thead>
+          <tbody id="batchesBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <template id="batchRowTemplate">
+    <tr>
+      <td data-field="index" style="color:var(--muted)"></td>
+      <td data-field="number" style="font-family:monospace;font-size:12px;"></td>
+      <td>
+        <span data-field="recipe" class="badge"></span>
+      </td>
+      <td data-field="variety"></td>
+      <td data-field="weightIn"></td>
+      <td data-field="weightOut"></td>
+      <td data-field="start"></td>
+      <td data-field="duration"></td>
+      <td>
+        <span data-field="status" class="log-event-badge"></span>
+      </td>
+      <td>
+        <button type="button" class="btn-report secondary" data-field="report">↓ CSV</button>
+      </td>
+    </tr>
+  </template>
+
+  <script defer src="assets/data.js"></script>
+  <script defer src="assets/auth.js"></script>
+  <script defer src="assets/api.js"></script>
+  <script defer src="assets/charts.js"></script>
+  <script defer src="assets/dashboard.js"></script>
+  <script defer src="assets/page-alarms.js"></script>
+  <script defer src="assets/page-batches.js"></script>
+  <script defer src="assets/page-recipes.js"></script>
+  <script defer src="assets/app.js"></script>
+</body>
+</html>
