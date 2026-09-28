@@ -11,8 +11,7 @@ batch tracking, alarm management, historical data, and automated XLSX batch repo
 A standalone Windows demo is available and can be installed without MySQL,
 Node.js, or additional database configuration.
 
-**Download:**  
-[Coffee Roasting Monitoring System v1.0.0](https://github.com/minjinnn1/coffee-roasting-monitoring-system/releases/tag/v1.0.0)
+**Download:** [Coffee Roasting Monitoring System v1.0.0](https://github.com/minjinnn1/coffee-roasting-monitoring-system/releases/tag/v1.0.0)
 ---
 
 ## Overview
