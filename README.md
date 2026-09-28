@@ -23,14 +23,25 @@ The original capstone architecture uses a Node.js/Express backend with a MySQL d
 The demo uses simulated process data to reproduce the behavior of the roasting process without requiring physical roasting equipment.
 
 ---
-
 ## Technologies
+
+### Desktop Application
+
+- Electron
+- electron-builder
+- NSIS
 
 ### Backend
 
 - Node.js
 - Express.js
-- MySQL
+- WebSocket (`ws`)
+- REST API
+
+### Databases
+
+- MySQL — original capstone architecture
+- SQLite (`better-sqlite3`) — standalone Windows demo
 
 ### Frontend
 
@@ -39,39 +50,48 @@ The demo uses simulated process data to reproduce the behavior of the roasting p
 - JavaScript
 - Chart.js
 
-### Other
+### Reporting
+
+- XLSX batch report generation
+
+### Development & Deployment
 
 - Git
 - GitHub
 - Docker (optional)
+- GitHub Releases
 
 ---
 
 ## Main Features
 
-- User authentication and authorization
-- Role-based access control
+- User authentication and role-based access control
+- Operator and Technologist user roles
 - Real-time monitoring of roasting parameters
-- Recipe management
-- Batch management
-- Alarm and deviation detection
-- Manual adjustment of control parameters
-- Event and action logging
-- Historical roasting data
-- Interactive process visualization
+- Recipe-based roasting process simulation
+- Recipe and roasting stage management
+- Batch creation, monitoring, and history
+- Real-time temperature and Rate of Rise (RoR) charts
+- Heating power and airflow adjustment
+- Alarm and process deviation detection
+- Alarm acknowledgement
+- System event and control action logging
+- Historical process data storage
+- XLSX batch report generation
+- Persistent local data storage in the standalone demo
 
 ---
 
 ## Monitored Parameters
 
-The system continuously monitors:
+The system monitors the following technological parameters in real time:
 
 - Inlet air temperature
 - Outlet air temperature
 - Bean temperature
 - Rate of Rise (RoR)
 
-Operators can adjust:
+Operators can adjust the following process controls:
 
 - Heating power
 - Airflow speed
@@ -80,11 +100,28 @@ Operators can adjust:
 
 ## System Architecture
 
-The application consists of three main components:
+The project has two configurations: the original capstone architecture and a standalone Windows demo.
 
-- **Frontend** — HTML, CSS, JavaScript
-- **Backend** — Node.js + Express REST API
-- **Database** — MySQL
+### Original Capstone Architecture
+
+The original version was designed around a client-server architecture with MySQL for persistent data storage.
+
+```text
+Process Simulation
+        │
+        ▼
+Node.js + Express Backend
+        │
+        ├── REST API
+        ├── WebSocket
+        │
+        ▼
+      MySQL
+        │
+        ▼
+Web-based User Interface
+
+
 
 ---
 
