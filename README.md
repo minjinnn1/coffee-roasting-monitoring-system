@@ -1,9 +1,18 @@
-# Industrial Monitoring and Control System for Coffee Bean Roasting
+# Coffee Roasting Monitoring & Control System
 
-Bachelor's capstone project focused on the design and implementation of an industrial monitoring and control system for the coffee bean roasting process.
+Bachelor's capstone project focused on the design and implementation of an
+industrial monitoring and control system for the coffee bean roasting process.
 
-The system provides real-time monitoring of roasting parameters, recipe management, batch tracking, alarm generation, and visualization of process data through a web-based interface.
+The system provides real-time process monitoring, recipe-based roasting control,
+batch tracking, alarm management, historical data, and automated XLSX batch reports.
 
+## Windows Demo
+
+A standalone Windows demo is available and can be installed without MySQL,
+Node.js, or additional database configuration.
+
+**Download:**  
+[Coffee Roasting Monitoring System v1.0.0](https://github.com/minjinnn1/coffee-roasting-monitoring-system/releases/tag/v1.0.0)
 ---
 
 ## Overview
