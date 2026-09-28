@@ -17,9 +17,11 @@ Node.js, or additional database configuration.
 
 ## Overview
 
-The project simulates the operation of a coffee roasting control system used in industrial production. It allows operators to monitor technological parameters, compare them with recipe setpoints, detect deviations, and manage roasting batches.
+The project simulates the operation of a coffee roasting monitoring and control system used in industrial production. It allows operators to monitor technological parameters in real time, compare measured values with recipe setpoints, detect deviations, adjust process controls, and manage roasting batches.
 
-The application follows a client-server architecture with a MySQL database and REST API.
+The original capstone architecture uses a Node.js/Express backend with a MySQL database, REST API, and WebSocket communication for real-time monitoring. A standalone Windows demo version was later developed using Electron and an embedded SQLite database, allowing the application to run without MySQL or additional database configuration.
+
+The demo uses simulated process data to reproduce the behavior of the roasting process without requiring physical roasting equipment.
 
 ---
 
